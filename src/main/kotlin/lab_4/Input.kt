@@ -14,7 +14,7 @@ sealed interface Input {
             return when {
                 /*ДОДЕЛАТЬ!*/
                 str.size == 4 -> Step(str)
-                str.size == 2 && str[0] == "-1" -> TakeBack()
+                str.size == 2 && str[0] == "-1" -> TakeBack(str[1].toInt())
                 else -> Exit()
             }
         }
