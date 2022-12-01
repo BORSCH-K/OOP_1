@@ -15,7 +15,8 @@ fun game(inputStream: InputStream = System.`in`, out: PrintStream = outputConsol
 
     // для балды
 //    if (Board.size == 5) {
-    val game = MultiGame(StateBalda("12345")) // ?????
+    val startWord = "balda"
+    val game = MultiGame(StateBalda(startWord)) // ?????
 //    }
 //    else {
 //        val game = MultiGame(StateXO())
@@ -25,17 +26,19 @@ fun game(inputStream: InputStream = System.`in`, out: PrintStream = outputConsol
 //        val reader = BufferedReader(inputStream.reader())
     // вызвать функцию для начального ввода слова!!! (функция: _____)
 
-
     while (!game.gameOver) {
         val reader = BufferedReader(inputStream.reader()).readLine()
-        Input.parse(reader)
+        when (val G = Input.parse(reader)){
+            is Exit -> print("Exit\n")
+            is Step -> if (checkStep(G.point)) game.step(G.point)
+            is TakeBack -> game.takeBack(G.shift)
+        }
 
         // вызов функции для установки параметров
-
         // ввод коодинат, буквы, слова
         // провекра |^|
         // новое состояние поля
         // проверка на выигрыш
-
+        print(game)
     }
 }
