@@ -17,11 +17,11 @@ abstract class AbstractState(val board: Board) {
         return null
     }
 
-    // проверка правильности хода игры
+    // проверка правильности хода игры + пустое поле или нет?
     open fun checkStep(step: Step):Boolean{
         return (step.x in 0  until  Board.size && step.y in 0  until Board.size) // add параметры
     }
 
     // если ход правильный с помощью checkStep, то вызываем nextState и возвращаем новое состояние
-    abstract fun nextState(step: Step):AbstractState?
+    abstract fun nextState(step: Step):AbstractState
 }
