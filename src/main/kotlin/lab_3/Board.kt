@@ -1,4 +1,4 @@
-package new_lab_3
+package lab_3
 
 class Board(val cells: Array<Array<Char>>) {
     constructor(str: String) : this(Array(size) { i -> stringToArray(str.substring(i * size)) })
