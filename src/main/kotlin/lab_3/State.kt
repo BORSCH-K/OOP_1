@@ -1,4 +1,4 @@
-package new_lab_3
+package lab_3
 
 class State(val board: Board = Board(Array(3) { Array(3) { ' ' } }), var turn: Char = 'X') {
 
