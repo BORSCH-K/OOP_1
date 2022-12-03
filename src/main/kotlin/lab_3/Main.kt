@@ -1,4 +1,4 @@
-package new_lab_3
+package lab_3
 
 import java.io.BufferedReader
 import java.io.InputStream
