@@ -14,18 +14,31 @@ fun main() {
 fun game(inputStream: InputStream = System.`in`, out: PrintStream = outputConsole) {
 
     // для балды
-//    if (Board.size == 5) {
+
     val startWord = "balda"
-    val game = MultiGame(StateBalda(startWord)) // ?????
-    print(game)
+    val game = MultiGame(StateBalda(startWord))
+    out.print(game)
 
     while (!game.gameOver) {
         val reader = BufferedReader(inputStream.reader()).readLine()
         when (val G = Input.parse(reader)){
-            is Exit -> print("Exit\n")
-            is Step -> if (game.step(G)) print("") else print("Error\n")
-            is TakeBack -> game.takeBack(G.shift)
+            is Exit -> {
+                out.print("Exit\n")
+                break
+            }
+            is Step -> if (game.step(G)) print("") else out.print("Error\n")
+            is TakeBack -> if (game.takeBack(G.shift)) out.print("RETURN:\n") else out.print("Error\n")
+//            else -> {}
         }
-        print(game)
+        out.print(game)
     }
+//    out.print("Слова игроков:\n")
+//    while (game.state.words1){
+//    if (game.gameOver)
+//        print(game.state.gameResult)
+//    else
+//    print(game.state.endGame)
+
+
+//    }
 }
