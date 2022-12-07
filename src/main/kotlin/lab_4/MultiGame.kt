@@ -22,7 +22,8 @@ class MultiGame(state: AbstractState) {
     fun step(step_: Step): Boolean {
         val s = state.step(step_)
         return if (s != null) {
-            states.add(state.copyState())
+//            state.step(step_)
+            states.add(s/*tate.step(step_)!!*/.copyState())
             indexState++
             true
         } else false
@@ -40,7 +41,7 @@ class MultiGame(state: AbstractState) {
 
     override fun toString(): String {
         return if (!gameOver)
-            "Ход: $indexState\n" + states[indexState]
+            "Ход: $indexState\n" + "Игрок: ${indexState%2+1}\n" + states[indexState]
         else
             state.toString()
     }
