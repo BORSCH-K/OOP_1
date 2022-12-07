@@ -23,7 +23,6 @@ class StateBalda(
         return StateBalda(Board(board.cells, 1), turn, words1, words2)
     }
 
-    // это поле?
     // скорее это поле + данные доски, поле записывается внутри
     override fun checkStep(step: Step): Boolean {
         return (step.x in 0 until Board.size
@@ -33,8 +32,6 @@ class StateBalda(
     }
 
     override fun nextState(step: Step): AbstractState {
-//        val b = board.setAndCopy(step.point, step.param[0])
-//        return copyState(b)
         if (turn == 1) words1.add(step.param[1]) else words2.add(step.param[1])
         return StateBalda(
             board.setAndCopy(step.point, step.param[0][0]),
@@ -42,18 +39,35 @@ class StateBalda(
             words1,
             words2
         )
-        // -> Board
     }
 
-
-    // ПЕРЕДЕЛАТЬ!!!****
-    override val gameResult: String? = null
+    override val gameResult: String?
+        get() {
+            return if (!board.isFill)
+                null
+            else
+                "Игра окончена!\n"
+        }
     //В текущем классе следует выполнить проверку количества параметров
 // хода в переменной step.param и корректно вызвать функцию checkStep
 // суперкласса.
-    // 1 или 2?
 
-//    override fun checkStep(step: Step): Boolean{}
+    override fun toString(): String {
+        return board.toString()
+    }
 
-
+    // почему-то не вызывается с мейна
+//     val endGame: String
+//        get() {
+//            var s1 = ""
+//            var s2 = ""
+////        val s0: Int = words1.size
+//            for (i in 0..words1.size) {
+//                s1 += words1[i] + "\n"
+//            }
+//            for (i in 0..words2.size) {
+//                s2 += words2[i] + "\n"
+//            }
+//            return "Слова 1 игрока:\n" + s1 + "Слова 1 игрока:\n" + s2
+//        }
 }
