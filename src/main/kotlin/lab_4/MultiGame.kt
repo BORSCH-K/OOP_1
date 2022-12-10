@@ -22,8 +22,7 @@ class MultiGame(state: AbstractState) {
     fun step(step_: Step): Boolean {
         val s = state.step(step_)
         return if (s != null) {
-//            state.step(step_)
-            states.add(s/*tate.step(step_)!!*/.copyState())
+            states.add(s.copyState())
             indexState++
             true
         } else false
