@@ -2,16 +2,16 @@ package lab_4
 
 class MultiGame(state: AbstractState) {
 
-    val states = ArrayList<AbstractState>()
-    var indexState = 0
+    private val states = ArrayList<AbstractState>()
+    private var indexState = 0
 
     init {
         if (indexState == 0) states.add(state)
     }
 
-    val state: AbstractState
+    private val state: AbstractState
         get() {
-            return states[indexState].copyState()
+            return states[indexState]//.copyState()
         }
 
     val gameOver: Boolean
@@ -19,8 +19,8 @@ class MultiGame(state: AbstractState) {
             return state.gameResult != null
         }
 
-    fun step(step_: Step): Boolean {
-        val s = state.step(step_)
+    fun step(step0: Step): Boolean {
+        val s = state.step(step0)
         return if (s != null) {
             states.add(s.copyState())
             indexState++
