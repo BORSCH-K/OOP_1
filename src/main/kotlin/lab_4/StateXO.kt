@@ -2,8 +2,9 @@ package lab_4
 
 class StateXO(board: Board = Board(Array(3) { Array(3) { ' ' } }), private var turn: Char = '0') : AbstractState(board) {
 
-    init {
+    override fun nextState(step: Step): AbstractState {
         turn = if (turn == 'X') '0' else 'X'
+        return StateXO(board.setAndCopy(step.point, turn), turn)
     }
 
     override fun copyState(): AbstractState {
@@ -40,28 +41,17 @@ class StateXO(board: Board = Board(Array(3) { Array(3) { ' ' } }), private var t
                 "Игра окончена!\n"
         }
 
-    override fun nextState(step: Step): AbstractState {
-        return StateXO(board.setAndCopy(step.point, turn), turn)
+    override fun checkStep(step: Step): Boolean {
+        return (step.x in 0 until Board.size && step.y in 0 until Board.size
+                && (board.getOrNull(Point(step.x, step.y)) != null))
     }
-    /*Данная функцию проверяет, можно ли сделать ход в переданную ей point.
-     Если нет – возвращает null.
-     Если да – возвращает новое состояние игры (с новой доской и новым символ для хода).*/
-    // проверка на корректность
-//    fun checkStep(point: Point): Boolean = (board.getOrNull(point) != null) /*{
-    // записывает в доску символ
-//            turn = if (turn == 'X') '0' else 'X'
-//        } else null
-//    }*/
-
-    /*если игра закончилась, возвращает строку информацию о победителе или о ничье,
-     а остальных случаях возвращает строку с текущим положением на доске и информации о том, чья очередь хода*/
+   
     override fun toString(): String {
-        return if (gameResult != null)
-            "Победил Игрок_$turn!\n$gameResult"
+        return if (gameResult != null) {
+            if (checkWin() == ' ') "Ничья!\n"
+            else "Победил Игрок_$turn!\n$gameResult"
+        }
         else
             board.toString()
-
-//            return Array(3) { Array(3) { ' ' } }.toString()
-         //+ "Игрок_$turn, введите координаты или команду\n"
     }
 }
