@@ -11,7 +11,7 @@ class MultiGame(state: AbstractState) {
 
     private val state: AbstractState
         get() {
-            return states[indexState]//.copyState()
+            return states[indexState].copyState()
         }
 
     val gameOver: Boolean
@@ -40,7 +40,7 @@ class MultiGame(state: AbstractState) {
 
     override fun toString(): String {
         return if (!gameOver)
-            "Ход: $indexState\n" + "Игрок: ${indexState%2+1}\n" + states[indexState]
+            "Ход: $indexState\n" /*+ "Игрок: ${indexState%2+1}\n"*/ + states[indexState]
         else
             state.toString()
     }
