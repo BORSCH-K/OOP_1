@@ -1,10 +1,10 @@
 package lab_4
 
 class StateBalda(
-    board: Board,
-    val turn: Int = 1,
-    private val words1: ArrayList<String> = ArrayList(),
-    private val words2: ArrayList<String> = ArrayList()
+        board: Board,
+        private val turn: Int = 1,
+        private val words1: ArrayList<String> = ArrayList(),
+        private val words2: ArrayList<String> = ArrayList()
 ) : AbstractState(board) {
 
     // при начале игры (startWord)
@@ -20,7 +20,7 @@ class StateBalda(
 
     // Подумать еще***
     override fun copyState(): AbstractState {
-        return StateBalda(Board(board.cells, 1), turn, words1, words2)
+        return StateBalda(Board(board), turn, words1, words2)
     }
 
     // скорее это поле + данные доски, поле записывается внутри
