@@ -1,12 +1,16 @@
 package lab_4
 
-class StateXO(board: Board = Board(Array(3) { Array(3) { ' ' } }), var turn: Char = '0') : AbstractState(board) {
+class StateXO(board: Board = Board(Array(3) { Array(3) { ' ' } }), private var turn: Char = '0') : AbstractState(board) {
 
-    override fun copyState(): StateXO {
-        return StateXO(Board(board.cells, 1), turn)
+    init {
+        turn = if (turn == 'X') '0' else 'X'
     }
 
-    fun checkWin(): Char {
+    override fun copyState(): AbstractState {
+        return StateXO(Board(board), turn)
+    }
+
+    private fun checkWin(): Char {
         val winLines = arrayOf(
             arrayOf(arrayOf(0, 0), arrayOf(0, 1), arrayOf(0, 2)),
             arrayOf(arrayOf(1, 0), arrayOf(1, 1), arrayOf(1, 2)),
@@ -37,7 +41,6 @@ class StateXO(board: Board = Board(Array(3) { Array(3) { ' ' } }), var turn: Cha
         }
 
     override fun nextState(step: Step): AbstractState {
-//       НА СЧЕТ turn ПОДУМАТЬ!!!
         return StateXO(board.setAndCopy(step.point, turn), turn)
     }
     /*Данная функцию проверяет, можно ли сделать ход в переданную ей point.
@@ -45,7 +48,7 @@ class StateXO(board: Board = Board(Array(3) { Array(3) { ' ' } }), var turn: Cha
      Если да – возвращает новое состояние игры (с новой доской и новым символ для хода).*/
     // проверка на корректность
 //    fun checkStep(point: Point): Boolean = (board.getOrNull(point) != null) /*{
-        // записывает в доску символ
+    // записывает в доску символ
 //            turn = if (turn == 'X') '0' else 'X'
 //        } else null
 //    }*/
@@ -55,10 +58,10 @@ class StateXO(board: Board = Board(Array(3) { Array(3) { ' ' } }), var turn: Cha
     override fun toString(): String {
         return if (gameResult != null)
             "Победил Игрок_$turn!\n$gameResult"
-        else {
-//            board.toString()
+        else
+            board.toString()
 
-            return Array(3) { Array(3) { ' ' } }.toString()
-        } //+ "Игрок_$turn, введите координаты или команду\n"
+//            return Array(3) { Array(3) { ' ' } }.toString()
+         //+ "Игрок_$turn, введите координаты или команду\n"
     }
 }
