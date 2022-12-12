@@ -4,10 +4,10 @@ class Board(val cells: Array<Array<Char>>) {
     constructor(str: String) : this(Array(size) { i -> stringToArray(str.substring(i * size)) })
 
     // конструктор для записи доски при отмене хода
-    constructor(arr: Array<Array<Char>>, t: Int) : this(Array(size) { i -> Array(size) { j -> arr[i][j] } })
+    constructor(board: Board) : this(board.cells.copy())
 
     companion object {
-        var size = 5
+        var size = 3
         fun stringToArray(string: String): Array<Char> {
             return Array(size) { i -> string[i] }
         }
@@ -20,13 +20,11 @@ class Board(val cells: Array<Array<Char>>) {
     // возвращают символ по координатам
     operator fun get(point: Point): Char = cells[point.y][point.x]
     operator fun get(point: Array<Int>): Char = cells[point[1]][point[0]]
-
     // возвращает ' ', если ход возможен
     fun getOrNull(point: Point): Char? {
         return if (point.x in 0 until size && point.y in 0 until size && get(point) == ' ') ' '
         else null
     }
-
     // возвращает переписанную доску
     fun setAndCopy(point: Point, c: Char): Board {
         return Board(cells.apply { this[point.y][point.x] = c }.copy())
@@ -43,6 +41,7 @@ class Board(val cells: Array<Array<Char>>) {
             return true
         }
 
+    // поле
     override fun toString(): String {
         var str = if (size == 3) "  012\n" else "  01234\n"
         for (i in 0 until size) {
