@@ -20,21 +20,21 @@ fun game(inputStream: InputStream = System.`in`, out: PrintStream = outputConsol
 //    val game = MultiGame(StateXO(turn = '0')) // "крестики-нолики"
     out.print(game)
     while (!game.gameOver) {
-        when (val i = Input.parse(reader.readLine())) {
+        when (val i = Input.parse(reader.readLine())) { // запись с консоли
             is Exit -> {
-                out.print("Exit\n")
+                out.print("Exit\n") // если ввод не правильный (не данные хода, а сам ход)
                 break
             }
 
             is Step -> {
-                if (game.step(i)) print("")
+                if (game.step(i)) print("") // ход совершен
                 else {
-                    out.print("Error\n")
+                    out.print("Error\n") // данные хода неверны 
                     continue
                 }
             }
 
-            is TakeBack -> {
+            is TakeBack -> { // запись: -1 (номер хода, НА который нужно веруться)
                 if (game.takeBack(i.shift)) out.print("RETURN:\n")
                 else out.print("Error\n")
             }
