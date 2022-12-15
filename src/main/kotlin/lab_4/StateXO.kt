@@ -2,15 +2,18 @@ package lab_4
 
 class StateXO(board: Board = Board(Array(3) { Array(3) { ' ' } }), private var turn: Char = '0') : AbstractState(board) {
 
+    // возвращение следующего состояния
     override fun nextState(step: Step): AbstractState {
-        turn = if (turn == 'X') '0' else 'X'
+        turn = if (turn == 'X') '0' else 'X' // смена игроков
         return StateXO(board.setAndCopy(step.point, turn), turn)
     }
 
+    // копирование состояния
     override fun copyState(): AbstractState {
         return StateXO(Board(board), turn)
     }
 
+    // проверка выигрышной позиции
     private fun checkWin(): Char {
         val winLines = arrayOf(
             arrayOf(arrayOf(0, 0), arrayOf(0, 1), arrayOf(0, 2)),
@@ -33,6 +36,7 @@ class StateXO(board: Board = Board(Array(3) { Array(3) { ' ' } }), private var t
         return ' '
     }
 
+    // результат игры
     override val gameResult: String?
         get() {
             return if (checkWin() == ' ' && !board.isFill)
@@ -41,11 +45,13 @@ class StateXO(board: Board = Board(Array(3) { Array(3) { ' ' } }), private var t
                 "Игра окончена!\n"
         }
 
+    // возможел ли ход на клетку
     override fun checkStep(step: Step): Boolean {
         return (step.x in 0 until Board.size && step.y in 0 until Board.size
                 && (board.getOrNull(Point(step.x, step.y)) != null))
     }
    
+    // поле / результат игры
     override fun toString(): String {
         return if (gameResult != null) {
             if (checkWin() == ' ') "Ничья!\n"
