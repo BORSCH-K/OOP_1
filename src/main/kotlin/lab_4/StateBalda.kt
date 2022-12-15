@@ -1,6 +1,8 @@
 package lab_4
 
-class StateBalda(
+// класс для игры балда
+// наследует абстрактный класс
+class StateBalda( 
         board: Board,
         private val turn: Int = 1,
         private val words1: ArrayList<String> = ArrayList(),
@@ -10,64 +12,41 @@ class StateBalda(
     // при начале игры (startWord)
     constructor(str: String) : this(Board("          $str          "))
 
-    /*  fun step(step: Step): AbstractState?{
-            if (checkStep(step)) {
-                return nextState(step)
-            }
-            return null
-        }
-    */
-
-    // Подумать еще***
+    // копирование состояния
     override fun copyState(): AbstractState {
         return StateBalda(Board(board), turn, words1, words2)
     }
 
-    // скорее это поле + данные доски, поле записывается внутри
+   // проверка возможности хода
     override fun checkStep(step: Step): Boolean {
-        return (step.x in 0 until Board.size
+        return (step.x in 0 until Board.size // если х и у в диапозоне от 0 до размера доски
                 && step.y in 0 until Board.size
-                && board.getOrNull(step.point) != null
-                && step.param[0].length == 1) // add параметры
+                && board.getOrNull(step.point) != null // если клетка пуста
+                && step.param[0].length == 1)  // если юзер передал один символ
     }
 
+    // возвращает следующее состояние
     override fun nextState(step: Step): AbstractState {
-        if (turn == 1) words1.add(step.param[1]) else words2.add(step.param[1])
+        if (turn == 1) words1.add(step.param[1]) else words2.add(step.param[1]) // в зависимости от игрока добавляет слово 
         return StateBalda(
-            board.setAndCopy(step.point, step.param[0][0]),
-            if (turn == 1) 2 else 1,
-            words1,
-            words2
+            board.setAndCopy(step.point, step.param[0][0]), // измененная ддоска
+            if (turn == 1) 2 else 1, // номер игрока
+            words1, // слова первого игрока
+            words2 // второго
         )
     }
 
+    // проверяет окончание игры: если на доске еще есть пустые поля - игра продолжается
     override val gameResult: String?
         get() {
-            return if (!board.isFill)
+            return if (!board.isFill) // если на доске еще есть пустые поля
                 null
-            else
+            else 
                 "Игра окончена!\n"
         }
-    //В текущем классе следует выполнить проверку количества параметров
-// хода в переменной step.param и корректно вызвать функцию checkStep
-// суперкласса.
-
+    
+    // возвращение доски
     override fun toString(): String {
         return board.toString()
     }
-
-    // почему-то не вызывается с мейна
-//     val endGame: String
-//        get() {
-//            var s1 = ""
-//            var s2 = ""
-////        val s0: Int = words1.size
-//            for (i in 0..words1.size) {
-//                s1 += words1[i] + "\n"
-//            }
-//            for (i in 0..words2.size) {
-//                s2 += words2[i] + "\n"
-//            }
-//            return "Слова 1 игрока:\n" + s1 + "Слова 1 игрока:\n" + s2
-//        }
 }
