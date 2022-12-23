@@ -18,6 +18,7 @@ fun game(inputStream: InputStream = System.`in`, out: PrintStream = outputConsol
     val startWord = "balda"                     // балда
     val game = MultiGame(StateBalda(startWord)) // балда
 //    val game = MultiGame(StateXO(turn = '0')) // "крестики-нолики"
+// val game = MultiGame(StateXOTemp(turn = '0')) // защита
     out.print(game)
     while (!game.gameOver) {
         when (val i = Input.parse(reader.readLine())) { // запись с консоли
