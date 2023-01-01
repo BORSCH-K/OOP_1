@@ -63,8 +63,6 @@ class GreatTest : StringSpec({
 
 ## Отладка
 >>>> Ожидание дополнений...
-
-
 ## Переменные и константы
 **Пременные**   
 Переменные могут быть двух видов: `val` и `var`. 
@@ -139,6 +137,98 @@ val myTrue: Boolean = true
 val myFalse: Boolean = false
 ```
 ## Сложные типы данных
+
+*Приметивы и объекты*     
+```Kotlin
+val number: Int = 1
+val numberString: String = number.toString()
+```
+- Объекты имеют больше возможностей.
+- Примитивы требуют меньше ресурсов.
+- Kotlin автоматически выбирает представление встроенных типов.
+
+*Массивы*       
+```Kotlin
+val x: IntArray = intArrayOf(1, 2, 3)     // массив примитивов
+val y: Array< Int > = arrayOf(1, 2, 3)    // массив объектов
+// Первый аргумент Array - размер массива
+// второй - функция инициализации (i - индекс элемента)
+val z: Array< Int > = Array(5, { i -> i*i }) 
+
+x[0] = у.size          // 3
+x[1] = z.last()        // 16
+```
+
+*Коллекции*     
+```Kotlin
+val x = ArrayList<Int>()
+x.addAll(listOf(1, 2, 3))
+x.add(5)
+print(x)
+``` 
+```
+[1, 2, 3, 5]
+```
+<!-- ```Kotlin
+```  -->
+*Структура данных*      
+```Kotlin
+class Good(val price: Float, val name: String)
+
+val mail: Good = Good(10F, "mail")
+val awl: Good = Good(20F, "awl")
+
+val total = mail.price + awl.price
+``` 
+
+*Диапозоны*
+```Kotlin
+val r1: IntRange = 1..10
+val r2: IntProgression = 10 downTo 1 step 2
+
+println(5 in r1)
+println(5 !in r2)
+```
+```
+true
+true
+```
+
+*Строки. Представления*     
+```Kotlin
+val i = 42
+val s = "answer is $i"
+val charArray: CharArray = s.toCharArray()
+charArray[0] = charArray[0].uppercaseChar()
+val newS: String = String(charArray)
+print(newS)
+```
+```
+Answer is 42
+```
+
+*Строки. Операции*      
+```Kotlin
+val s1 = "string one"
+println(s1.uppercase())
+println(s1.replace(" ", "_"))
+println(s1.substring(1 .. 3))
+println(s1.split(" "))
+```
+```
+STRING ONE
+string_one
+tri
+[string, one]
+```
+
+*Кортежи (tuples)*      
+```Kotlin
+val p: Pair<Int, String> = Pair(1,"")
+val t: Triple<Int, String, Char> = 
+        Triple(p.first, p.second, '1')
+```
+
 >>>> Ожидание дополнений...
 ## Управляющие конструкции
 >>>> Ожидание дополнений...
